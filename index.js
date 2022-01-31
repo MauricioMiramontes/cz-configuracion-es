@@ -61,15 +61,24 @@ function formatScope(scope) {
 }
 
 function formatHead({ type, scope, subject }, config) {
-  const prelude = config.conventional
-    ? `${type.name}${formatScope(scope)}: ${type.emoji}`
-    : `${type.emoji} ${formatScope(scope)}`
-
+  const prelude = `${type.name}${formatScope(scope)}: ${type.emoji}`
   return `${prelude} ${subject}`
 }
 
 function formatIssues(issues) {
-  return issues ? 'Closes ' + (issues.match(/#\d+/g) || []).join(', closes ') : ''
+  return issues ? 'Closes ' + (issues.match(/#\d+/g) || []).join(', closes ') + '\n' : ''
+}
+
+function formatCoAuthor(coAuthor) {
+  string_coAuthor = coAuthor.replace(" ", "") ?? "";
+  let author_array = string_coAuthor.split(",");
+  let result_string = '';
+  for (const AUTHOR in author_array) {
+      if(string_coAuthor){
+        result_string += `Co-authored-by: ${author_array[AUTHOR]} <${author_array[AUTHOR]}@users.noreply.github.com>${author_array.length === 1 || AUTHOR == author_array.length-1 ?'':'\n'}`
+      }
+  }
+  return result_string
 }
 
 /**
@@ -100,14 +109,16 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.type
           ? config.questions.type
-          : "Select the type of change you're committing:",
+          : "Selecciona el tipo del commit:\n",
       source: (_, query) => Promise.resolve(query ? fuzzy.search(query) : choices)
     },
     {
       type: config.scopes ? 'list' : 'input',
       name: 'scope',
       message:
-        config.questions && config.questions.scope ? config.questions.scope : 'Specify a scope:',
+        config.questions && config.questions.scope
+          ? config.questions.scope
+          : '¿Cuál es el scope (archivo, tag o nombre)? (opcional):\n',
       choices: config.scopes && [{ name: '[none]', value: '' }].concat(config.scopes),
       when: !config.skipQuestions.includes('scope')
     },
@@ -117,7 +128,7 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.subject
           ? config.questions.subject
-          : 'Write a short description:',
+          : 'Título descriptivo corto:\n',
       maxLength: config.subjectMaxLength,
       filter: (subject, answers) => formatHead({ ...answers, subject }, config)
     },
@@ -127,15 +138,26 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.body
           ? config.questions.body
-          : 'Provide a longer description:',
+          : 'Descripción detallada del cambio (opcional):\n',
       when: !config.skipQuestions.includes('body')
     },
     {
       type: 'input',
       name: 'breakingBody',
       message:
-        'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
+        config.questions && config.questions.breaking
+          ? config.questions.breaking
+          : '¿Estos cambios rompen alguna parte del sistema? (opcional):\n',
       when: !config.skipQuestions.includes('breaking')
+    },
+    {
+      type: 'input',
+      name: 'coAuthor',
+      message:
+        config.questions && config.questions.issues
+          ? config.questions.coauthored
+          : 'Nombre de usuario de co-autor (opcional):\n',
+      when: !config.skipQuestions.includes('coauthored')
     },
     {
       type: 'input',
@@ -143,7 +165,7 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.issues
           ? config.questions.issues
-          : 'List any issue closed (#1, #2, ...):',
+          : 'Issues relacionados (ej:#1, #2, ...) (opcional):\n',
       when: !config.skipQuestions.includes('issues')
     }
   ]
@@ -164,9 +186,9 @@ function format(answers) {
   const body = wrap(answers.body || '', columns)
   const breaking =
     answers.breakingBody && answers.breakingBody.trim().length !== 0
-      ? wrap(`BREAKING CHANGE: ${answers.breakingBody.trim()}`, columns)
+      ? wrap(`CAMBIO ROTO: ${answers.breakingBody.trim()}`, columns)
       : ''
-  const footer = formatIssues(answers.issues)
+  const footer = formatIssues(answers.issues) + formatCoAuthor(answers.coAuthor)
 
   return [head, body, breaking, footer]
     .filter(Boolean)
