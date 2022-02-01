@@ -26,7 +26,7 @@
   {
     "emoji": "♻️",
     "code": ":recycle:",
-    "description": "Cambios en el código que no corrigue un error o agrega una función.",
+    "description": " Cambios en el código que no corrigue un error o agrega una función.",
     "name": "refactor"
   },
   {
@@ -44,7 +44,7 @@
   {
     "emoji": "🏗",
     "code": ":building_construction:",
-    "description": "Cambios que afectan al sitema de compilación o dependencias externas.",
+    "description": " Cambios que afectan al sitema de compilación o dependencias externas.",
     "name": "build"
   },
   {
