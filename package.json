@@ -1,10 +1,20 @@
 {
-  "name": "cz-emoji",
-  "version": "1.3.1",
-  "description": "Commitizen adapter formatting commit messages using emojis.",
-  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh/)",
+  "name": "cz-configuracion-es",
+  "version": "1.0.0",
+  "description": "Paquete de configuracin basado en cz-emoji, traducido al español",
+  "contributors":[
+    {
+      "name": "Mauricio Miramontes",
+      "email": "mauricio.miramontes@televisatim.com",
+      "url": "https://mauriciomiramontes.github.io/react-portfolio/"
+    },
+    {
+      "name": "Carina Jiménez García",
+      "email": "carina.jimenez@televisatim.com"
+    }
+  ],
   "license": "MIT",
-  "repository": "ngryman/cz-emoji",
+  "repository": "MauricioMiramontes/cz-configuracion-es",
   "main": "index.js",
   "engines": {
     "node": ">=4"
@@ -24,15 +34,15 @@
     }
   },
   "dependencies": {
-    "cli-truncate": "^1.0.0",
-    "find-up": "^5.0.0",
-    "fuse.js": "^3.4.5",
-    "homedir": "^0.6.0",
-    "inquirer-autocomplete-prompt": "^0.12.0",
-    "inquirer-maxlength-input-prompt": "^1.0.1",
-    "pad": "^2.3.0",
-    "prettier": "^1.18.2",
-    "read-pkg-up": "^7.0.1",
-    "wrap-ansi": "^8.0.1"
+    "cli-truncate": "1.0.0",
+    "find-up": "5.0.0",
+    "fuse.js": "3.4.5",
+    "homedir": "0.6.0",
+    "inquirer-autocomplete-prompt": "0.12.0",
+    "inquirer-maxlength-input-prompt": "1.0.1",
+    "pad": "2.3.0",
+    "prettier": "1.18.2",
+    "read-pkg-up": "7.0.1",
+    "wrap-ansi": "8.0.1"
   }
 }
