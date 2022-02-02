@@ -15,7 +15,7 @@ const types = require('./lib/types')
 function loadConfig(filename) {
   return readFile(filename, 'utf8')
     .then(JSON.parse)
-    .then(obj => obj && obj.config && obj.config['cz-emoji'])
+    .then(obj => obj && obj.config && obj.config['cz-configuracion-es'])
     .catch(() => null)
 }
 
@@ -69,7 +69,7 @@ function formatIssues(issues) {
 }
 
 function formatCoAuthor(coAuthor) {
-  string_coAuthor = coAuthor.replace(" ", "") ?? "";
+  let string_coAuthor = coAuthor ? coAuthor.replace(" ", "") : "";
   let author_array = string_coAuthor.split(",");
   let result_string = '';
   for (const AUTHOR in author_array) {
@@ -188,6 +188,7 @@ function format(answers) {
     answers.breakingBody && answers.breakingBody.trim().length !== 0
       ? wrap(`CAMBIO ROTO: ${answers.breakingBody.trim()}`, columns)
       : ''
+
   const footer = formatIssues(answers.issues) + formatCoAuthor(answers.coAuthor)
 
   return [head, body, breaking, footer]
