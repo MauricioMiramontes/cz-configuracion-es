@@ -164,5 +164,6 @@ La cantidad máxima de caracteres disponibles en el subject. (Recordatorio: El m
 MIT Copyright © 2022 Mauricio Miramontes Ramírez and Carina Jiménez García.
 
 ### Colaboradores
-<a href="https://github.com/CariJG"><img src="https://user-images.githubusercontent.com/64931832/152229817-c21e775f-837f-4c53-94fe-60a1dfe2a34f.png"/><a/>
-<a href="https://github.com/MauricioMiramontes"><img src="https://user-images.githubusercontent.com/64931832/152229860-f137031c-8d13-4ae5-b5de-146a73bcf099.png"/><a/>
+
+<a href="https://github.com/CariJG"><img style="width: 60px;height: 60px;" src="https://user-images.githubusercontent.com/64931832/152250524-3f4fdde3-2f4e-4de3-90bf-1663df9f66a0.png"/><a/>
+<a href="https://github.com/MauricioMiramontes"><img style="width: 60px;height: 60px;" src="https://user-images.githubusercontent.com/64931832/152250482-00401807-8b38-4664-a3af-a4b9a31ed6bd.png"/><a/>
