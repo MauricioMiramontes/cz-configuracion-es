@@ -10,17 +10,7 @@
 
 cz-configuracion-es es un paquete de configuración para commitizen basado en cz-emoji que traduce y ofrece un par de mejoras al template.
 
-
-
-```sh
-? Selecciona el tipo del commit tipo
-❯ feat      🔨  Se agregan nuevas características/funcionalidades.
-  fix       🐛  Corrección de algún error o bug.
-  chore     ✅  Cambios que no afectan al código o las pruebas unitarias.
-  style     🎨  Cambios que no afectan el significado del código.
-  refactor  ♻️  Cambios en el código que no corrige un error o agrega una función.
-```
-
+![2022-02-02 13-39-43](https://user-images.githubusercontent.com/61033998/152226684-544fccea-e335-479d-8338-bec57f6b3ecf.gif)
 
 ### 🔧 Instalación de dependencias
 
@@ -56,6 +46,7 @@ Alternativamente se puede agregar un archivo `.czrc` y se agregaría de la sigui
 }
 ```
 <p style="font-size:0.9rem; font-weight:bold;">Nota: Esta es la manera recomendada para agregar la configuración.</p>
+
 ### Uso del template
 Para visualizar el template escribimos el siguiente comando en la consola:
 ```sh
