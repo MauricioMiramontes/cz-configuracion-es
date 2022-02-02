@@ -8,7 +8,7 @@
   {
     "emoji": "🐛",
     "code": ":bug:",
-    "description": "Corección de algún error o bug.",
+    "description": "Corrección de algún error o bug.",
     "name": "fix"
   },
   {
@@ -26,13 +26,13 @@
   {
     "emoji": "♻️",
     "code": ":recycle:",
-    "description": " Cambios en el código que no corrigue un error o agrega una función.",
+    "description": " Cambios en el código que no corrige un error o agrega una función.",
     "name": "refactor"
   },
   {
     "emoji": "⚡️",
     "code": ":zap:",
-    "description": "Cambios en el cógigo que mejora el rendimiento.",
+    "description": "Cambios en el código que mejora el rendimiento.",
     "name": "perf"
   },
   {
@@ -44,7 +44,7 @@
   {
     "emoji": "🏗",
     "code": ":building_construction:",
-    "description": " Cambios que afectan al sitema de compilación o dependencias externas.",
+    "description": " Cambios que afectan al sistema de compilación o dependencias externas.",
     "name": "build"
   },
   {

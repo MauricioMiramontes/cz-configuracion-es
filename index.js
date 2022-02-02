@@ -15,7 +15,7 @@ const types = require('./lib/types')
 function loadConfig(filename) {
   return readFile(filename, 'utf8')
     .then(JSON.parse)
-    .then(obj => obj && obj.config && obj.config['cz-emoji'])
+    .then(obj => obj && obj.config && obj.config['cz-configuracion-es'])
     .catch(() => null)
 }
 
@@ -154,7 +154,7 @@ function createQuestions(config) {
       type: 'input',
       name: 'coAuthor',
       message:
-        config.questions && config.questions.issues
+        config.questions && config.questions.coauthored
           ? config.questions.coauthored
           : 'Nombre de usuario de co-autor (opcional):\n',
       when: !config.skipQuestions.includes('coauthored')
