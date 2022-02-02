@@ -26,10 +26,9 @@ function loadConfigUpwards(filename) {
 async function getConfig() {
   const defaultConfig = {
     types,
-    symbol: false,
+    symbol: true,
     skipQuestions: [''],
     subjectMaxLength: 75,
-    conventional: false
   }
 
   const config =
@@ -60,9 +59,9 @@ function formatScope(scope) {
   return scope ? `(${scope})` : ''
 }
 
-function formatHead({ type, scope, subject }, config) {
+function formatHead({ type, scope, subject }) {
   const prelude = `${type.name}${formatScope(scope)}: ${type.emoji}`
-  return `${prelude} ${subject}`
+  return `${prelude} ${subject.toLowerCase()}`
 }
 
 function formatIssues(issues) {
@@ -118,9 +117,10 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.scope
           ? config.questions.scope
-          : '¿Cuál es el scope (archivo, tag o nombre)? (opcional):\n',
+          : '¿Cuál es el scope (archivo o tag)? (opcional):\n',
       choices: config.scopes && [{ name: '[none]', value: '' }].concat(config.scopes),
-      when: !config.skipQuestions.includes('scope')
+      when: !config.skipQuestions.includes('scope'),
+      filter: (scope) => scope = scope.toLowerCase()
     },
     {
       type: 'maxlength-input',
@@ -130,7 +130,7 @@ function createQuestions(config) {
           ? config.questions.subject
           : 'Título descriptivo corto:\n',
       maxLength: config.subjectMaxLength,
-      filter: (subject, answers) => formatHead({ ...answers, subject }, config)
+      filter: (subject, answers) => formatHead({ ...answers, subject })
     },
     {
       type: 'input',
@@ -139,7 +139,7 @@ function createQuestions(config) {
         config.questions && config.questions.body
           ? config.questions.body
           : 'Descripción detallada del cambio (opcional):\n',
-      when: !config.skipQuestions.includes('body')
+      when: !config.skipQuestions.includes('body'),
     },
     {
       type: 'input',
@@ -156,7 +156,7 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.coauthored
           ? config.questions.coauthored
-          : 'Nombre de usuario de co-autor (opcional):\n',
+          : 'Nombre de usuario de github de co-autor(es) (ej: Usuario1, Usuario2, ...) (opcional):\n',
       when: !config.skipQuestions.includes('coauthored')
     },
     {
