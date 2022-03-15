@@ -147,7 +147,7 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.breaking
           ? config.questions.breaking
-          : '¿Estos cambios rompen alguna parte del sistema? (opcional):\n',
+          : '¿Estos cambios rompen alguna parte del sistema? Descripcion corta (opcional):\n',
       when: !config.skipQuestions.includes('breaking')
     },
     {
@@ -186,7 +186,7 @@ function format(answers) {
   const body = wrap(answers.body || '', columns)
   const breaking =
     answers.breakingBody && answers.breakingBody.trim().length !== 0
-      ? wrap(`CAMBIO ROTO: ${answers.breakingBody.trim()}`, columns)
+      ? wrap(`BREAKING CHANGE: ${answers.breakingBody.trim()}`, columns)
       : ''
 
   const footer = formatIssues(answers.issues) + formatCoAuthor(answers.coAuthor)
