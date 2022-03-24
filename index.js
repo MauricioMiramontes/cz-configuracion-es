@@ -11,6 +11,7 @@ const util = require('util')
 const readFile = util.promisify(fs.readFile)
 
 const types = require('./lib/types')
+const SCOPES = require('./lib/scopes')
 
 function loadConfig(filename) {
   return readFile(filename, 'utf8')
@@ -39,14 +40,18 @@ async function getConfig() {
   return { ...defaultConfig, ...config }
 }
 
-function getEmojiChoices({ types, symbol }) {
-  const maxNameLength = types.reduce(
-    (maxLength, type) => (type.name.length > maxLength ? type.name.length : maxLength),
+function reducerNameLength(array) {
+  const maxNameLength = array.reduce(
+    (maxLength, element) => (element.name.length > maxLength ? element.name.length : maxLength),
     0
   )
+  return maxNameLength
+}
 
+function getEmojiChoices({ types, symbol }) {
+  const maxLengthName = reducerNameLength(types)
   return types.map(choice => ({
-    name: `${pad(choice.name, maxNameLength)}  ${choice.emoji}  ${choice.description}`,
+    name: `${pad(choice.name, maxLengthName)}  ${choice.emoji}  ${choice.description}`,
     value: {
       emoji: symbol ? `${choice.emoji} ` : choice.code,
       name: choice.name
@@ -55,8 +60,17 @@ function getEmojiChoices({ types, symbol }) {
   }))
 }
 
+function getScopeChoices( SCOPES ) {
+  const maxLengthName = reducerNameLength(SCOPES)
+  return SCOPES.map(scope => ({
+      name: `${pad(scope.name, maxLengthName)}  ${scope.description}`,
+      value: scope.value
+    })
+  )
+}
+
 function formatScope(scope) {
-  return scope ? `(${scope})` : ''
+  return scope !== " " ? `(${scope})` : ''
 }
 
 function formatHead({ type, scope, subject }) {
@@ -65,7 +79,7 @@ function formatHead({ type, scope, subject }) {
 }
 
 function formatIssues(issues) {
-  return issues ? 'Closes ' + (issues.match(/#\d+/g) || []).join(', closes ') + '\n' : ''
+  return issues ? 'Closes ' + (issues.match(/#\w+/g) || []).join(', closes ') + '\n' : ''
 }
 
 function formatCoAuthor(coAuthor) {
@@ -90,8 +104,19 @@ function formatCoAuthor(coAuthor) {
  */
 function createQuestions(config) {
   const choices = getEmojiChoices(config)
+  const scopes = getScopeChoices(SCOPES)
 
-  const fuzzy = new fuse(choices, {
+  const fuzzyTypes = new fuse(choices, {
+    shouldSort: true,
+    threshold: 0.4,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: ['name', 'code']
+  })
+
+  const fuzzyScopes = new fuse(scopes, {
     shouldSort: true,
     threshold: 0.4,
     location: 0,
@@ -109,18 +134,16 @@ function createQuestions(config) {
         config.questions && config.questions.type
           ? config.questions.type
           : "Selecciona el tipo del commit:\n",
-      source: (_, query) => Promise.resolve(query ? fuzzy.search(query) : choices)
+      source: (_, query) => Promise.resolve(query ? fuzzyTypes.search(query) : choices)
     },
     {
-      type: config.scopes ? 'list' : 'input',
+      type: 'autocomplete',
       name: 'scope',
       message:
         config.questions && config.questions.scope
           ? config.questions.scope
           : '¿Cuál es el scope (archivo o tag)? (opcional):\n',
-      choices: config.scopes && [{ name: '[none]', value: '' }].concat(config.scopes),
-      when: !config.skipQuestions.includes('scope'),
-      filter: (scope) => scope = scope.toLowerCase()
+      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes)
     },
     {
       type: 'maxlength-input',

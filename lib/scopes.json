@@ -1,0 +1,67 @@
+[
+  {
+    "name": "[VACIO]",
+    "description": "No lleva scope",
+    "value": " "
+  },
+  {
+    "name": "Router",
+    "description": "Cambio relacionado con las rutas del servidor de la APP",
+    "value": "router"
+  },
+  {
+    "name": "AMP",
+    "description": "Cambios relacionado con AMP",
+    "value": "AMP"
+  },
+  {
+    "name": "DesingSystem",
+    "description": "Cambio al sistema de diseño",
+    "value": "DesingSystem"
+  },
+  {
+    "name": "Script",
+    "description": "Se modifica o se agrega un nuevo Script",
+    "value": "script"
+  },
+  {
+    "name": "Settings",
+    "description": "Se modifica las configuraciones de la App",
+    "value": "config"
+  },
+  {
+    "name": "Tools",
+    "description": "Se agrega o se modifica alguna herramienta de la App",
+    "value": "tools"
+  },
+  {
+    "name": "Business Rules",
+    "description": "Cambios a las Business Rules",
+    "value": "BusinessRules"
+  },
+  {
+    "name": "Hooks",
+    "description": "Cambio relacionado a los Hooks de la App",
+    "value": "hooks"
+  },
+  {
+    "name": "Components",
+    "description": "Cambio a algun componente de REACT ",
+    "value": "componentes"
+  },
+  {
+    "name": "public",
+    "description": "Cambios en la carpeta de public o public/hash",
+    "value": "public"
+  },
+  {
+    "name": "Cloud",
+    "description": "Cambios relacionados con CircleCI y AWS",
+    "value": "cloud"
+  },
+  {
+    "name": "Micelaneo",
+    "description": "Un cambio especifico que no se encuentra en las categorias anteriores",
+    "value": "other"
+  }
+]
