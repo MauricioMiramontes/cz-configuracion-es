@@ -8,7 +8,7 @@
   </div>
 </p>
 
-cz-configuracion-es es un paquete de configuración para commitizen basado en cz-emoji que traduce y ofrece un par de mejoras al template.
+cz-configuracion-es es un paquete de configuración para [commitizen](https://github.com/commitizen/cz-cli), para poder utilizar esta configuración es necesario tener intalado y configurado commitizen de forma global, basado en [cz-emoji](https://github.com/ngryman/cz-emoji) que traduce y ofrece un par de mejoras al template.
 
 ![2022-02-02 13-39-43](https://user-images.githubusercontent.com/61033998/152226684-544fccea-e335-479d-8338-bec57f6b3ecf.gif)
 
@@ -31,7 +31,7 @@ Usando **yarn**:
 $ yarn install --dev <DireccionDeDescargaDelPaquete>
 ```
 
-Agregar a `package.json`:
+Agregamos a nuestro archivo `package.json`, la siguiente nodo `"config"` para indicarle a commitizen que acceda a nuestra configuración por defecto:
 ```json
 "config": {
   "commitizen": {
@@ -39,21 +39,28 @@ Agregar a `package.json`:
   }
 }
 ```
-Alternativamente se puede agregar un archivo `.czrc` y se agregaría de la siguiente forma: 
+Si se desea tener la configuración de commitizen por separado, se recomienda crear un archivo llamado `.czrc` en la carpeta raíz, de la siguiente forma:
+
+- package.json:
+```json
+"config": "./.czrc"`
+```
+- .czrc
 ```json
 {
   "path": "./node_modules/cz-configuracion-es"
 }
 ```
-<p style="font-size:0.9rem; font-weight:bold;">Nota: Esta es la manera recomendada para agregar la configuración.</p>
-
 ### Uso del template
 Para visualizar el template escribimos el siguiente comando en la consola:
 ```sh
 git cz
 ```
+
+<p style="font-size:0.9rem; font-weight:bold;">Nota: Este comando funciona al momento de tener instalado commitizen de forma global.</p>
+
 ### Personalización
-La configuración de `cz-configuracion-es` puede manejarse desde un archivo `.czrc` o desde `package.json`, se agrega de la siguiente forma:
+Te ofrecemos diferentes formas de configurar el paquete `cz-configuracion-es`, con la finalidad de personalizar de acuerdo a tus requerimientos, esta configuración puede manejarse desde un archivo `.czrc` o desde `package.json`, se agrega de la siguiente forma:
 
 ```json
 {
@@ -83,6 +90,8 @@ Por defecto se tenemos 11 types que se puede utilizar en nuestra configuración,
   }
 }
 ```
+<p style="font-size:0.9rem; font-weight:bold;">Nota: Al agregar el nodo types se sobrescribe todos los nodos types que se tienen por defecto.</p>
+
 ##### ✨ Scopes:
 Se puede proporcionar dentro de la configuración una lista de scopes posibles para elegir cuando se construye el commit, si esta variable no se encuentra entonces se le pedirá al usuario que ingrese de forma manual el scope del commit.
 ```json
@@ -120,10 +129,9 @@ Dentro de la configuración se puede proporcionar un arreglo con las preguntas q
 ```
 
 ##### ✨ Preguntas personalizadas
-Un objeto que contiene los textos que sobre escribirán los textos por defecto
-Debe tener un nodo con el nombre la pregunta a la que se desea cambiar el texto.
+En las configuraciones personalizadas exite el nodo `questios`, el cual hace referencia al texto de las preguntas, a continuación se enlistan los nodos que pueden cambiar.
 
-<p style="font-weight:bold; font-size:0.9rem">Nodos posibles:</p>
+<p style="font-weight:bold; font-size:0.9rem">Nodos:</p>
 
 - `types`
 - `scope`
@@ -148,7 +156,7 @@ Debe tener un nodo con el nombre la pregunta a la que se desea cambiar el texto.
 ```
 ##### ✨ Personalización de maximo de caracteres en subject
 
-La cantidad máxima de caracteres disponibles en el subject. (Recordatorio: El máximo según las reglas de commits convencionales debería de ser 75)
+La cantidad máxima de caracteres disponibles en el `subject`.
 
 ```json
 {
@@ -159,6 +167,8 @@ La cantidad máxima de caracteres disponibles en el subject. (Recordatorio: El m
   }
 }
 ```
+<p style="font-size:0.9rem; font-weight:bold;">Nota: El máximo según las reglas de commits convencionales debería de ser 75.</p>
+
 ### License
 
 MIT Copyright © 2022 Mauricio Miramontes Ramírez and Carina Jiménez García.
