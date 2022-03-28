@@ -2,3 +2,9 @@
 yarn.lock
 .gitignore
 .editorconfig
+README.md
+LICENSE
+package-lock.json
+.editorconfig
+.gitattributes
+
