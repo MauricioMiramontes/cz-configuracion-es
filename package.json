@@ -1,48 +1,69 @@
 {
-  "name": "cz-configuracion-es",
-  "version": "1.0.0",
-  "description": "Paquete de configuracin basado en cz-emoji, traducido al español",
-  "contributors":[
-    {
-      "name": "Mauricio Miramontes",
-      "email": "mauricio.miramontes@televisatim.com",
-      "url": "https://mauriciomiramontes.github.io/react-portfolio/"
+    "name": "cz-configuracion-es",
+    "version": "1.0.0",
+    "description": "Paquete de configuracin basado en cz-emoji, traducido al español",
+    "contributors": [
+        {
+            "name": "Mauricio Miramontes",
+            "email": "mauricio.miramontes@televisatim.com",
+            "url": "https://mauriciomiramontes.github.io/react-portfolio/"
+        },
+        {
+            "name": "Carina Jiménez García",
+            "email": "carina.jimenez@televisatim.com"
+        }
+    ],
+    "license": "MIT",
+    "repository": "MauricioMiramontes/cz-configuracion-es",
+    "main": "index.js",
+    "engines": {
+        "node": ">=4"
     },
-    {
-      "name": "Carina Jiménez García",
-      "email": "carina.jimenez@televisatim.com"
+    "files": [
+        "index.js",
+        "lib/types.json"
+    ],
+    "keywords": [
+        "commitizen",
+        "adapter",
+        "emoji"
+    ],
+    "config": {
+        "commitizen": {
+            "path": "./index.js"
+        }
+    },
+    "dependencies": {
+        "cli-truncate": "^1.0.0",
+        "find-up": "^5.0.0",
+        "fuse.js": "^3.4.5",
+        "homedir": "^0.6.0",
+        "inquirer-autocomplete-prompt": "^0.12.0",
+        "inquirer-maxlength-input-prompt": "^1.0.1",
+        "pad": "^2.3.0",
+        "prettier": "^2.6.1",
+        "read-pkg-up": "^7.0.1",
+        "wrap-ansi": "^3.0.0"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^16.2.3",
+        "@commitlint/config-conventional": "^16.2.1",
+        "eslint": "^8.12.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-react": "^7.29.4",
+        "eslint-plugin-react-hooks": "^4.4.0",
+        "husky": "^7.0.0",
+        "lint-staged": "^12.3.7",
+        "standard-version": "^9.3.2"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "pre-commit": "lint-staged",
+        "release:beta": "standar-version -- --prerelease beta",
+        "release": "standard-version"
     }
-  ],
-  "license": "MIT",
-  "repository": "MauricioMiramontes/cz-configuracion-es",
-  "main": "index.js",
-  "engines": {
-    "node": ">=4"
-  },
-  "files": [
-    "index.js",
-    "lib/types.json"
-  ],
-  "keywords": [
-    "commitizen",
-    "adapter",
-    "emoji"
-  ],
-  "config": {
-    "commitizen": {
-      "path": "./index.js"
-    }
-  },
-  "dependencies": {
-    "cli-truncate": "^1.0.0",
-    "find-up": "^5.0.0",
-    "fuse.js": "^3.4.5",
-    "homedir": "^0.6.0",
-    "inquirer-autocomplete-prompt": "^0.12.0",
-    "inquirer-maxlength-input-prompt": "^1.0.1",
-    "pad": "^2.3.0",
-    "prettier": "^1.18.2",
-    "read-pkg-up": "^7.0.1",
-    "wrap-ansi": "^3.0.0"
-  }
 }

@@ -1,0 +1,7 @@
+/.vscode
+/.next
+/dist
+/node_modules
+eslintFormat.js
+/reports
+/public
