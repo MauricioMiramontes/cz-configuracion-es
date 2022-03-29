@@ -17,7 +17,7 @@
   {
     "name": "DesingSystem",
     "description": "Cambio al sistema de diseño",
-    "value": "DesingSystem"
+    "value": "desingSystem"
   },
   {
     "name": "Script",
@@ -58,6 +58,16 @@
     "name": "Cloud",
     "description": "Cambios relacionados con CircleCI y AWS",
     "value": "cloud"
+  },
+  {
+    "name": "HotFix",
+    "description": "Este cambio fue parte de un HotFix",
+    "value": "hotfix"
+  },
+  {
+    "name": "QuickFix",
+    "description": "Este cambio fue parte de un QuickFix",
+    "value": "quickfix"
   },
   {
     "name": "Micelaneo",

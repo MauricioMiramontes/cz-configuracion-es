@@ -69,12 +69,12 @@ function getScopeChoices( SCOPES ) {
   )
 }
 
-function formatScope(scope) {
-  return scope !== " " ? `(${scope})` : ''
+function formatScope(scope, secondScope) {
+  return scope !== " " ? `(${scope}${secondScope !== " " ? `, ${secondScope}` : ""})` : ""
 }
 
-function formatHead({ type, scope, subject }) {
-  const prelude = `${type.name}${formatScope(scope)}: ${type.emoji}`
+function formatHead({ type, scope, secondScope, subject }) {
+  const prelude = `${type.name}${formatScope(scope, secondScope)}: ${type.emoji}`
   return `${prelude} ${subject.toLowerCase()}`
 }
 
@@ -142,8 +142,18 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.scope
           ? config.questions.scope
-          : '¿Cuál es el scope (archivo o tag)? (opcional):\n',
+          : '¿Cuál es el primer scope (archivo o tag)? (opcional):\n',
       source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes)
+    },
+    {
+      type: 'autocomplete',
+      name: 'secondScope',
+      message:
+        config.questions && config.questions.scope
+          ? config.questions.scope
+          : '¿Cuál es el segundo scope (archivo o tag)? (opcional):\n',
+      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes),
+      when: answers => answers.scope !== " ",
     },
     {
       type: 'maxlength-input',
@@ -152,7 +162,7 @@ function createQuestions(config) {
         config.questions && config.questions.subject
           ? config.questions.subject
           : 'Título descriptivo corto:\n',
-      maxLength: config.subjectMaxLength,
+      maxLength: config.subjectMaxLength-1,
       filter: (subject, answers) => formatHead({ ...answers, subject })
     },
     {
