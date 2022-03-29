@@ -13,6 +13,7 @@ const readFile = util.promisify(fs.readFile)
 const types = require('./lib/types')
 const SCOPES = require('./lib/scopes')
 
+
 function loadConfig(filename) {
   return readFile(filename, 'utf8')
     .then(JSON.parse)
@@ -70,7 +71,7 @@ function getScopeChoices( SCOPES ) {
 }
 
 function formatScope(scope, secondScope) {
-  return scope !== " " ? `(${scope}${secondScope !== " " ? `, ${secondScope}` : ""})` : ""
+  return scope !== ' ' ? `(${scope}${secondScope !== ' ' ? `, ${secondScope}` : ''})` : ''
 }
 
 function formatHead({ type, scope, secondScope, subject }) {
@@ -83,8 +84,8 @@ function formatIssues(issues) {
 }
 
 function formatCoAuthor(coAuthor) {
-  let string_coAuthor = coAuthor ? coAuthor.replace(" ", "") : "";
-  let author_array = string_coAuthor.split(",");
+  let string_coAuthor = coAuthor ? coAuthor.replace(' ', '') : '';
+  let author_array = string_coAuthor.split(',');
   let result_string = '';
   for (const AUTHOR in author_array) {
       if(string_coAuthor){
@@ -93,6 +94,12 @@ function formatCoAuthor(coAuthor) {
   }
   return result_string
 }
+
+function secondListScopes (scope, firstListScopes){
+  let newListScope =  firstListScopes.filter((element) => element.value !== scope.scope);
+  return newListScope;
+}
+
 
 /**
  * Create inquier.js questions object trying to read `types` and `scopes` from the current project
@@ -133,7 +140,7 @@ function createQuestions(config) {
       message:
         config.questions && config.questions.type
           ? config.questions.type
-          : "Selecciona el tipo del commit:\n",
+          : 'Selecciona el tipo del commit:\n',
       source: (_, query) => Promise.resolve(query ? fuzzyTypes.search(query) : choices)
     },
     {
@@ -143,7 +150,8 @@ function createQuestions(config) {
         config.questions && config.questions.scope
           ? config.questions.scope
           : '¿Cuál es el primer scope (archivo o tag)? (opcional):\n',
-      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes)
+      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes),
+
     },
     {
       type: 'autocomplete',
@@ -152,8 +160,8 @@ function createQuestions(config) {
         config.questions && config.questions.scope
           ? config.questions.scope
           : '¿Cuál es el segundo scope (archivo o tag)? (opcional):\n',
-      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : scopes),
-      when: answers => answers.scope !== " ",
+      source: (_, query) => Promise.resolve(query ? fuzzyScopes.search(query) : secondListScopes(_, scopes)),
+      when: answers => answers.scope !== ' ',
     },
     {
       type: 'maxlength-input',
